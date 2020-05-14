@@ -21,10 +21,14 @@ mongoose.connect(dbConfig.url, {
 
 // route definition
 app.get('/', (request, response) => {
-    response.json({'message': 'Welcome User!'})
+    response.json({'message': 'Welcome User!'});
 });
 
 // listen for requests
-app.listen(3001, () => {
-    console.log('Server is listening on port 3001')
+app.listen(3001, err => {
+    if (err)
+        throw new Error('${err}');
+    console.log('Server is listening on port 3001');
 });
+
+module.exports = app;
