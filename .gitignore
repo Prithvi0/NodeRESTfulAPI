@@ -1,0 +1,6 @@
+# Directory dependency
+node_modules/
+
+# Packages
+package-lock.json
+package.json
