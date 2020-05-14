@@ -3,6 +3,11 @@ const bodyParser = require('body-parser');
 const app = express();
 const dbConfig = require('./config/databaseConfig');
 const mongoose = require('mongoose');
+const http = require('http');
+const port = process.env.PORT || 4001;
+const server = http.createServer(app);
+const dotenv = require('dotenv');
+dotenv.config();
 
 // parse requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,10 +30,10 @@ app.get('/', (request, response) => {
 });
 
 // listen for requests
-app.listen(3001, err => {
+server.listen(port, err => {
     if (err)
-        throw new Error('${err}');
-    console.log('Server is listening on port 3001');
+        throw new Error(err);
+    console.log(`Server is listening on port ${port}`);
 });
 
 module.exports = app;
