@@ -29,6 +29,9 @@ app.get('/', (request, response) => {
     response.json({'message': 'Welcome User!'});
 });
 
+// route for user
+require('./routes/routes') (app);
+
 // listen for requests
 server.listen(port, err => {
     if (err)
