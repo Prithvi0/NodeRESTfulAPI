@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Users = require('../app/models').User;
-const config = require('../config');
+const Users = require('../app/models/userModel');
+const config = require('../config/databaseConfig');
 const addUser = user => Users.create(user);
 const getUserByLogin = login => Users.findOne({ where: { login } });
 
