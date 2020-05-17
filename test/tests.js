@@ -35,4 +35,18 @@ describe("Tests for user API", () => {
                 expect(res.body.message).to.equals("User created");
             });
     });
+
+    it('given incorrect input when login should not login user', () => {
+        chai.request(app)
+            .post("/login")
+            .send({
+                UserName: "hel1",
+                userEmail: "hel1@gmail.com",
+                password: ""
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(401);
+                expect(res.body.message).to.equals("Authentication failed");
+            });
+    });
 });
