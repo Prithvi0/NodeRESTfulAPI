@@ -1,9 +1,11 @@
-module.exports = app => {
-    const user = require('../controllers/userController');
+const user = require('../controllers/userController');
+const express = require('express');
+const router = express.Router();
 
-    // create a new user
-    app.post('/registration', user.register);
+// create a new user
+router.post('/registration', user.register);
 
-    // retrieve user
-    app.get('/login', user.login);
-}
+// retrieve user
+router.get('/login', user.login);
+
+module.exports = router;
