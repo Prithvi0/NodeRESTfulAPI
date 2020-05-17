@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 const http = require('http');
-const port = process.env.PORT || 6001;
+const port = process.env.PORT || 7001;
 const server = http.createServer(app);
 const dotenv = require('dotenv');
 dotenv.config();
@@ -28,9 +28,6 @@ mongoose.connect(process.env.MONGO_URL, {
 app.get('/', (request, response) => {
     response.json({'message': 'Welcome User!'});
 });
-
-// route for user
-require('./routes/routes') (app);
 
 // listen for requests
 server.listen(port, err => {
