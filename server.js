@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const dbConfig = require('./config/databaseConfig');
 const mongoose = require('mongoose');
 const http = require('http');
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 6001;
 const server = http.createServer(app);
 const dotenv = require('dotenv');
 dotenv.config();
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // connecting to the database
-mongoose.connect(dbConfig.url, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
