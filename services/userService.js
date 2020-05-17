@@ -18,7 +18,6 @@ const authenticate = params => {
             throw new Error('Authentication failed. Wrong password.');
         const payload = {
             login: user.login,
-            id: user.id,
             time: new Date()
         };
         var token = jwt.sign(payload, config.jwtSecret, {
