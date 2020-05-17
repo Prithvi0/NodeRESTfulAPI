@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.register = (req, res) => {
-    userService.find({ email: req.body.email })
+    userService.find({ 'emailId': req.body.emailId })
         .exec()
         .then(user => {
             if (user.length >= 1) {
@@ -18,8 +18,9 @@ exports.register = (req, res) => {
                         });
                     } else {
                         const user = new User({
-                            email: req.body.email,
-                            password: hash
+                            'userName': req.body.userName,
+                            'emailId': req.body.emailId,
+                            'password': hash
                         });
                         user.save()
                             .then(result => {
@@ -40,7 +41,7 @@ exports.register = (req, res) => {
 };
 
 exports.login = (req, res) => {
-    User.find({ email: req.body.email })
+    User.find({ 'emailId': req.body.emailId })
         .exec()
         .then(user => {
             if (user.length < 1) {
@@ -57,7 +58,8 @@ exports.login = (req, res) => {
                 if (result) {
                     const token = jwt.sign(
                         {
-                            emailId: user.emailId,
+                            'emailId': user.emailId,
+                            'password': user.password
                         },
                     );
                     return res.status(200).json({
