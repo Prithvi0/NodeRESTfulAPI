@@ -17,7 +17,22 @@ describe("Tests for user API", () => {
         chai.request(app)
             .get("/")
             .end((err, res) => {
-                chai.expect(res).to.have.status(200);
+                expect(res).to.have.status(200);
+                expect(res.body.message).to.equals("Welcome User!")
+            });
+    });
+
+    it('given correct inputs when registration should register user', () => {
+        chai.request(app)
+            .post("/registration")
+            .send({
+                UserName: "hel1o",
+                emailId: "hello@goomail.com",
+                password: "#e11O123"
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(201);
+                expect(res.body.message).to.equals("User created");
             });
     });
 });
