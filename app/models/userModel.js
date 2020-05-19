@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
+const regexValidation = require('../models/emailValidate');
 
 const userSchema = mongoose.Schema({
     userName: {
         type: String,
-        required: true,
+        required: [true, 'user name required'],
         unique: true,
-        match: /^[a-zA-Z][\w]{2,14}$/
+        min: 3,
+        max: 15
     },
     emailId: {
             type: String,
-            required: true,
+            required: [true, 'email required'],
             unique: true,
-            match: /^[a-zA-Z]+([+-_.][a-zA-Z0-9])*[0-9]*\@[a-z0-9]+[.]([a-z]{2,4}[.])?[a-z]{2,4}$/
+            match: regexValidation.emailValidate(),
         },
     password: {
             type: String,
-            required: true,
-            match: /^.{8,20}/
+            required: [true, 'password required'],
+            min: 8,
+            max: 20
         },
     },
         {
