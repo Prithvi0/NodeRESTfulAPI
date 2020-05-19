@@ -1,30 +1,26 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const Users = require('../app/models/userModel');
-const config = require('../config/databaseConfig');
-const addUser = user => Users.create(user);
-const getUserByLogin = login => Users.findOne({ where: { login } });
+/**
+ * @params {object} data
+ * @params {callback function} callback
+ */
 
-const authenticate = params => {
-    return Users.findOne({
-        where: {
-            login: params.login
-        },
-        raw: true
-    }).then(user => {
-        if (!user)
-            throw new Error('Authentication failed. User not found.');
-        if (!bcrypt.compareSync(params.password || ', user.password'))
-            throw new Error('Authentication failed. Wrong password.');
-        const payload = {
-            login: user.login,
-            time: new Date()
-        };
-        var token = jwt.sign(payload, config.jwtSecret, {
-            expiresIn: config.tokenExpireTime
-        });
-        return token;
-    });
+const Users = require('../app/models/userModel');
+
+exports.register = (data, callback) => {
+  Users.register(data, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, result);
+    }
+  });
 }
 
-module.exports = { addUser, getUserByLogin, authenticate };
+exports.login = (data, callback) => {
+    Users.login(data, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, result);
+        }
+    });
+}
